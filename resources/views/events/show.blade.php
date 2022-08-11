@@ -14,11 +14,18 @@
                 <p class="event-city"><ion-icon name="location-outline"></ion-icon>{{ $event->city }}</p>
                 <p class="events-participants"><ion-icon name="people-outline"></ion-icon> X Participantes</p>
                 <p class="event-owner"><ion-icon name="star-outline"></ion-icon> Dono do Evento</p>
-                <div class="col-md-12" id="description-container">
-                    <h3>Sobre o Evento:</h3>
-                    <p class="event-description">{{ $event->description }}</p>
-                </div>
+                <h3>Detalhes do Evento</h3>
+                <ul id="items-list">
+                    @foreach($event->items as $item)
+                        <li><ion-icon name="play-outline"></ion-icon><span>{{ $item }}</span></li>
+                    @endforeach
+                    <p class="event-description">Data: {{ date('d/m/Y'), strtotime($event->date) }}</p>
+                </ul>
                 <a href="#" class="btn btn-primary" id="event-submit">Confirmar Presença</a>
+            </div>
+            <div class="col-md-12" id="description-container">
+                <h3>Sobre o Evento:</h3>
+                <p class="event-description">{{ $event->description }}</p>
             </div>
         </div>
     </div>
