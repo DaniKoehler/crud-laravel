@@ -196,6 +196,10 @@ header {
     display: flex;
 }
 
+#description-container {
+    margin-top: 30px;
+}
+
 /* Footer */
 footer {
     background-color: #353e48;
