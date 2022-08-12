@@ -218,6 +218,15 @@ header {
     display: inline-block;
 }
 
+/* Edit Page */
+
+.img-preview {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
 /* Footer */
 footer {
     background-color: #353e48;
