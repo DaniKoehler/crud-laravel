@@ -22,12 +22,16 @@
                     @endforeach
                     <p class="event-description">Data: {{ date('d/m/Y'), strtotime($event->date) }}</p>
                 </ul>
-                <form action="/events/join/{{ $event->id }}" method="POST">
-                    @csrf
-                    <a href="/events/join/{{ $event->id }}" class="btn btn-primary"
-                        id="event-submit" onclick="event.preventDefault();
-                        this.closest('form').submit();">Confirmar Presença</a>
-                </form>
+                @if(!$hasUserJoined)
+                    <form action="/events/join/{{ $event->id }}" method="POST">
+                        @csrf
+                        <a href="/events/join/{{ $event->id }}" class="btn btn-primary"
+                            id="event-submit" onclick="event.preventDefault();
+                            this.closest('form').submit();">Confirmar Presença</a>
+                    </form>
+                @else
+                    <p class="already-joined-msg">Você está confirmado deste evento!</p>
+                @endif
             </div>
             <div class="col-md-12" id="description-container">
                 <h3>Sobre o Evento:</h3>
