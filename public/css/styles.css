@@ -218,6 +218,10 @@ header {
     display: inline-block;
 }
 
+.dashboard-title-container tr {
+    vertical-align: middle;
+}
+
 /* Edit Page */
 
 .img-preview {

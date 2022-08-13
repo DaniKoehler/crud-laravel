@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('event_user');
+        Schema::dropColumns('event_user');
     }
 };

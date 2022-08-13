@@ -65,7 +65,8 @@ class EventController extends Controller
     public function dashboard() {
         $user = auth()->user();
         $events = $user->events;
-        return view('events.dashboard', ['events' => $events]);
+        $eventsAsParticipant = $user->eventsAsParticipant;
+        return view('events.dashboard', ['events' => $events, 'eventsasparticipant' => $eventsAsParticipant]);
     }
 
     public function destroy($id) {
@@ -74,7 +75,12 @@ class EventController extends Controller
     }
 
     public function edit($id) {
+        $user = auth()->user();
         $event = Event::findOrFail($id);
+        if($user->id != $event->user_id) {
+            return redirect('/dashboard')->with('msg', 'Você não tem permissão para editar este evento!');
+        }
+
         return view('events.edit', ['event' => $event]);
     }
 
@@ -97,9 +103,16 @@ class EventController extends Controller
 
     public function joinEvent($id) {
         $user = auth()->user();
-        $user->eventsAsParticipants()->attach($id);
         $event = Event::findOrFail($id);
-        return redirect('/dashboard')->with('msg', 'Você se inscreveu no evento ' . $event->title . '!');
+        $event->users()->attach($user->id);
+        return redirect('/dashboard')->with('msg', 'Você se inscreveu no evento com sucesso!');
+    }
+
+    public function leaveEvent($id) {
+        $user = auth()->user();
+        $event = Event::findOrFail($id);
+        $event->users()->detach($user->id);
+        return redirect('/dashboard')->with('msg', 'Você saiu do evento com sucesso!');
     }
 
 }
